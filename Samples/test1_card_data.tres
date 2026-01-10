@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://bwfa60g3mul28"]
+
+[ext_resource type="Texture2D" uid="uid://cb7ekgkmdk0m6" path="res://Placeholders/Sprites/UI/handle_small_disabled.png" id="1_8xks6"]
+[ext_resource type="Script" uid="uid://dkfpkpwp43aok" path="res://addons/GenkiCardGame/card_data.gd" id="1_y8f7d"]
+
+[resource]
+script = ExtResource("1_y8f7d")
+fields = Dictionary[String, Variant]({
+"image": ExtResource("1_8xks6"),
+"number": "[color=red]AS",
+"subicon": true
+})
+metadata/_custom_type_script = "uid://dkfpkpwp43aok"

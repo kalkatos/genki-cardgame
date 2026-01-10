@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://blfjs5bskwk1c"]
+
+[ext_resource type="Theme" uid="uid://chuq7tes1dmyf" path="res://Placeholders/Themes/base_theme.tres" id="1_5p2fr"]
+[ext_resource type="Script" uid="uid://dqvgqqawdtc64" path="res://addons/GenkiCardGame/card.gd" id="1_g8efq"]
+[ext_resource type="Script" uid="uid://ba4ca2mlxei2r" path="res://Modules/UI/sprite_3D_viewport.gd" id="2_8ms8j"]
+[ext_resource type="Texture2D" uid="uid://b7ywyxsie0ma6" path="res://Placeholders/Sprites/UI/panel.png" id="3_q103a"]
+[ext_resource type="Texture2D" uid="uid://cigbml224povc" path="res://Placeholders/Sprites/UI/depression.png" id="4_g8efq"]
+[ext_resource type="Texture2D" uid="uid://bpcyw2mlwue8y" path="res://Placeholders/Sprites/UI/borderless.png" id="6_cn21l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_714kb"]
+size = Vector3(3, 3, 0.1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cn21l"]
+viewport_path = NodePath("Front/SubViewport")
+
+[node name="Card" type="Area3D" node_paths=PackedStringArray("front", "back", "glow_obj", "visuals", "root")]
+input_capture_on_drag = true
+script = ExtResource("1_g8efq")
+front = NodePath("Front")
+back = NodePath("Back")
+glow_obj = NodePath("Front/Glow")
+visuals = [NodePath("Front/Sprite3DViewport"), NodePath("Front/Glow"), NodePath("Back/Background"), NodePath("Back/Background/Detail")]
+root = NodePath(".")
+metadata/_custom_type_script = "uid://d264b3rhgvtis"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_714kb")
+
+[node name="Front" type="Node3D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="Front"]
+size = Vector2i(150, 150)
+
+[node name="Panel" type="Panel" parent="Front/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Front/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5p2fr")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite3DViewport" type="Sprite3D" parent="Front" node_paths=PackedStringArray("vp")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+double_sided = false
+texture = SubResource("ViewportTexture_cn21l")
+script = ExtResource("2_8ms8j")
+vp = NodePath("../SubViewport")
+metadata/_custom_type_script = "uid://ba4ca2mlxei2r"
+
+[node name="Glow" type="Sprite3D" parent="Front"]
+transform = Transform3D(-2.5, 0, -3.77489e-07, 0, 2.5, 0, 3.77489e-07, 0, -2.5, 0, 0, -0.005)
+visible = false
+modulate = Color(0, 1, 0.116667, 1)
+texture = ExtResource("6_cn21l")
+
+[node name="Back" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Background" type="Sprite3D" parent="Back"]
+transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0.01)
+double_sided = false
+texture = ExtResource("3_q103a")
+
+[node name="Detail" type="Sprite3D" parent="Back/Background"]
+transform = Transform3D(0.552955, 0, 3.55271e-15, 0, 0.552955, 0, -3.55271e-15, 0, 0.552955, 2.77556e-17, 0, 0.00368637)
+double_sided = false
+texture = ExtResource("4_g8efq")
