@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://bai3djfthys01"]
 
-[ext_resource type="Script" uid="uid://dkfpkpwp43aok" path="res://addons/GenkiCardGame/card_data.gd" id="1_cboag"]
+[ext_resource type="Script" uid="uid://dkfpkpwp43aok" path="res://addons/genki-cardgame/card_data.gd" id="1_cboag"]
 
 [resource]
 script = ExtResource("1_cboag")

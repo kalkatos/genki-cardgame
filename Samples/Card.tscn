@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://blfjs5bskwk1c"]
 
 [ext_resource type="Theme" uid="uid://chuq7tes1dmyf" path="res://Placeholders/Themes/base_theme.tres" id="1_5p2fr"]
-[ext_resource type="Script" uid="uid://dqvgqqawdtc64" path="res://addons/GenkiCardGame/card.gd" id="1_g8efq"]
+[ext_resource type="Script" uid="uid://dqvgqqawdtc64" path="res://addons/genki-cardgame/card.gd" id="1_g8efq"]
 [ext_resource type="Script" uid="uid://ba4ca2mlxei2r" path="res://Modules/UI/sprite_3D_viewport.gd" id="2_8ms8j"]
 [ext_resource type="Texture2D" uid="uid://b7ywyxsie0ma6" path="res://Placeholders/Sprites/UI/panel.png" id="3_q103a"]
 [ext_resource type="Texture2D" uid="uid://cigbml224povc" path="res://Placeholders/Sprites/UI/depression.png" id="4_g8efq"]
