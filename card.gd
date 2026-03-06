@@ -145,7 +145,11 @@ func set_sorting (order: int, save: bool = true) -> void:
 		_saved_sorting_order = order
 	if is_highlighted:
 		order = Global.highlighted_card_sorting
-	for visual in visuals:
+	for i in range(visuals.size()):
+		var visual = visuals[i]
+		if not visual:
+			Debug.log_warning("Visual not found for card %s at index %d" % [card_name, i])
+			continue
 		visual.sorting_offset = order
 
 
