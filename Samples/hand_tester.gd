@@ -10,12 +10,12 @@ func _input (event: InputEvent) -> void:
 	if event is InputEventKey and not event.echo and event.pressed:
 		# Shuffle cards on Space key
 		if event.keycode == KEY_SPACE:
-			Debug.logm("Shuffling")
+			print("Shuffling")
 			shuffle()
 			_organize()
 		# Add a new redundant card on 'D' key
 		elif event.keycode == KEY_D:
-			Debug.logm("Adding")
+			print("Adding")
 			if not prefab:
 				prefab = get_last()
 			var new_card = prefab.duplicate()

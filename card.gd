@@ -46,7 +46,7 @@ func _ready () -> void:
 	_camera = get_viewport().get_camera_3d()
 	# Ensure camera is available for 3D interactions
 	if not _camera and not Engine.is_editor_hint():
-		Debug.log_error("No camera 3D found in the current viewport.")
+		push_error("No camera 3D found in the current viewport.")
 	_default_highlight_settings = HighlightSettings.new(
 			Vector3(0, 0, HIGHLIGHT_HEIGHT),
 			Vector3(0, 0, -HIGHLIGHT_HEIGHT),
@@ -162,7 +162,7 @@ func set_sorting (order: int, save: bool = true) -> void:
 	for i in range(visuals.size()):
 		var visual = visuals[i]
 		if not visual:
-			Debug.log_warning("Visual not found for card %s at index %d" % [card_name, i])
+			push_warning("Visual not found for card %s at index %d" % [card_name, i])
 			continue
 		visual.sorting_offset = order
 
@@ -234,7 +234,7 @@ func _update_all_views (key: String, value: Variant) -> void:
 			for nodepath in field:
 				_update_view(key, value, get_node(nodepath))
 		else:
-			Debug.log_error("Field view for key %s is neither a NodePath nor an Array of NodePaths." % key)
+			push_error("Field view for key %s is neither a NodePath nor an Array of NodePaths." % key)
 
 
 ## Internal helper to update a specific node based on a typed value.
@@ -251,7 +251,7 @@ func _update_view (key: String, value: Variant, node: Node):
 		"Sprite2D", "Sprite3D", "TextureRect", "NinePatchRect":
 			node.texture = value
 		_:
-			Debug.log_error("Treatment for field view with key %s and class %s is not implemented." % [key, node_class])
+			push_error("Treatment for field view with key %s and class %s is not implemented." % [key, node_class])
 
 
 ## Kills the main movement tween and triggers cleanup.

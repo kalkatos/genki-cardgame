@@ -20,11 +20,11 @@ func _input (event: InputEvent) -> void:
 	if event is InputEventKey and not event.echo and event.pressed:
 		# Add a new card on 'D' key
 		if event.keycode == KEY_D:
-			Debug.logm("Adding")
+			print("Adding")
 			if not _prefab:
 				_prefab = get_last()
 				if not _prefab:
-					Debug.log_error("No card is child of GridTester.")
+					push_error("No card is child of GridTester.")
 					return
 			var new_card = _prefab.duplicate()
 			var next = _next_slot()

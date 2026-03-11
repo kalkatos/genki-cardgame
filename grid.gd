@@ -30,7 +30,7 @@ func _organize ():
 func add_to_grid (node: Node, pos: Vector2i):
 	# Handle replacement if the position is already occupied
 	if grid.has(pos) and grid[pos]:
-		Debug.log_warning("When adding a new node, removed node %s at position %s" % [str(grid[pos]), str(pos)])
+		push_warning("When adding a new node, removed node %s at position %s" % [str(grid[pos]), str(pos)])
 		remove_item(grid[pos])
 	grid[pos] = node
 	add_item(node)
