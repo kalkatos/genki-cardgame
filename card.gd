@@ -13,7 +13,6 @@ extends Draggable
 @export_group("References")
 @export var front: Node3D
 @export var back: Node3D
-@export var glow_obj: Node3D
 @export var visuals: Array[VisualInstance3D]
 
 var is_highlighted: bool = false
@@ -23,7 +22,7 @@ var card_name: String = "Card"
 var is_face_up: bool:
 	get: return global_basis.z.dot(Vector3.UP) >= 0
 var is_glowing: bool:
-	get: return glow_obj.visible
+	get: return get_field_value("is_glowing", false)
 
 var _values: Dictionary[String, Variant]
 var _camera: Camera3D
@@ -64,19 +63,14 @@ func set_data (data_: CardData) -> void:
 	_setup(data)
 
 
+func get_field_value (key: String, default_value: Variant = null) -> Variant:
+	return _values.get(key, default_value)
+
+
 ## Sets a specific field value and updates any linked visual nodes.
 func set_field_value (key: String, value: Variant):
 	_values[key] = value
-	# Update linked views if they exist for this key
-	if field_views.has(key):
-		var field = field_views[key]
-		if field is NodePath:
-			_update_view(key, value, get_node(field))
-		elif field is Array:
-			for nodepath in field:
-				_update_view(key, value, get_node(nodepath))
-		else:
-			Debug.log_error("Field view for key %s is neither a NodePath nor an Array of NodePaths." % key)
+	_update_all_views(key, value)
 
 
 ## Enables or disables the hover highlight effect.
@@ -129,7 +123,8 @@ func flip () -> void:
 
 ## Sets the visual glow effect state.
 func set_glow (on: bool) -> void:
-	glow_obj.visible = on
+	set_field_value("is_glowing", on)
+	set_field_value("is_not_glowing", not on)
 
 
 ## Smoothly tweens the card to a global position.
@@ -228,6 +223,18 @@ func _apply_highlight (on: bool, settings: HighlightSettings) -> void:
 		_back_highlight_tween.set_ease(settings.ease)
 		_back_highlight_tween.tween_property(back, "position", Vector3(0, 0, 0), 0.2)
 		_back_highlight_tween.parallel().tween_property(back, "scale", Vector3(1, 1, 1), 0.2)
+
+
+func _update_all_views (key: String, value: Variant) -> void:
+	if field_views.has(key):
+		var field = field_views[key]
+		if field is NodePath:
+			_update_view(key, value, get_node(field))
+		elif field is Array:
+			for nodepath in field:
+				_update_view(key, value, get_node(nodepath))
+		else:
+			Debug.log_error("Field view for key %s is neither a NodePath nor an Array of NodePaths." % key)
 
 
 ## Internal helper to update a specific node based on a typed value.
