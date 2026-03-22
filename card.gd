@@ -31,6 +31,7 @@ var _main_tween: Tween
 var _front_highlight_tween: Tween
 var _back_highlight_tween: Tween
 var _default_highlight_settings: HighlightSettings
+var _default_sorting_settings: SortingSettings
 var _saved_sorting_order: int
 var _last_sorting_order: int
 
@@ -55,6 +56,7 @@ func _ready () -> void:
 			0.2,
 			Tween.TRANS_BOUNCE,
 			Tween.EASE_OUT)
+	_default_sorting_settings = SortingSettings.new()
 
 
 ## Sets the card's data resource and updates visuals.
@@ -83,7 +85,7 @@ func set_highlight (on: bool, force: bool = false) -> void:
 	is_highlighted = on
 	# Ensure highlighted cards appear on top
 	if on:
-		set_sorting(Global.highlighted_card_sorting, false)
+		set_sorting(_default_sorting_settings.highlighted_card_sorting, false)
 	else:
 		set_sorting(_saved_sorting_order)
 
@@ -157,7 +159,7 @@ func set_sorting (order: int, save: bool = true) -> void:
 		_last_sorting_order = _saved_sorting_order
 		_saved_sorting_order = order
 	if is_highlighted:
-		order = Global.highlighted_card_sorting
+		order = _default_sorting_settings.highlighted_card_sorting
 	# Apply order to all registered visual components
 	for i in range(visuals.size()):
 		var visual = visuals[i]
@@ -277,7 +279,7 @@ func _begin_drag (_mouse_position: Vector2):
 	var camera = get_viewport().get_camera_3d()
 	_drag_quat = _face_camera_quat()
 	# Temporarily increase sorting so the dragged card is on top
-	set_sorting(Global.drag_card_sorting, false)
+	set_sorting(_default_sorting_settings.drag_card_sorting, false)
 
 
 ## Internal callback for ongoing drag operations.
@@ -332,3 +334,11 @@ class HighlightSettings:
 		self.time = time
 		self.trans = trans
 		self.ease = ease
+
+class SortingSettings:
+	var drag_card_sorting: int
+	var highlighted_card_sorting: int
+
+	func _init (drag_card_sorting: int = 30, highlighted_card_sorting: int = 20):
+		self.drag_card_sorting = drag_card_sorting
+		self.highlighted_card_sorting = highlighted_card_sorting
