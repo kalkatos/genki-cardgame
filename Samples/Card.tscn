@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://blfjs5bskwk1c"]
+[gd_scene format=3 uid="uid://blfjs5bskwk1c"]
 
 [ext_resource type="Theme" uid="uid://chuq7tes1dmyf" path="res://Placeholders/Themes/base_theme.tres" id="1_5p2fr"]
 [ext_resource type="Script" uid="uid://dqvgqqawdtc64" path="res://addons/genki-cardgame/card.gd" id="1_g8efq"]
@@ -10,35 +10,34 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_714kb"]
 size = Vector3(3, 3, 0.1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_cn21l"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_a2avq"]
 viewport_path = NodePath("Front/SubViewport")
 
-[node name="Card" type="Area3D" node_paths=PackedStringArray("front", "back", "glow_obj", "visuals", "root")]
+[node name="Card" type="Area3D" unique_id=995670454 node_paths=PackedStringArray("front", "back", "visuals", "root")]
 input_capture_on_drag = true
 script = ExtResource("1_g8efq")
 front = NodePath("Front")
 back = NodePath("Back")
-glow_obj = NodePath("Front/Glow")
 visuals = [NodePath("Front/Sprite3DViewport"), NodePath("Front/Glow"), NodePath("Back/Background"), NodePath("Back/Background/Detail")]
 root = NodePath(".")
 metadata/_custom_type_script = "uid://d264b3rhgvtis"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=32112111]
 shape = SubResource("BoxShape3D_714kb")
 
-[node name="Front" type="Node3D" parent="."]
+[node name="Front" type="Node3D" parent="." unique_id=64401095]
 
-[node name="SubViewport" type="SubViewport" parent="Front"]
+[node name="SubViewport" type="SubViewport" parent="Front" unique_id=954041748]
 size = Vector2i(150, 150)
 
-[node name="Panel" type="Panel" parent="Front/SubViewport"]
+[node name="Panel" type="Panel" parent="Front/SubViewport" unique_id=1958624206]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Front/SubViewport"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Front/SubViewport" unique_id=1275715114]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -52,29 +51,29 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite3DViewport" type="Sprite3D" parent="Front" node_paths=PackedStringArray("vp")]
+[node name="Sprite3DViewport" type="Sprite3D" parent="Front" unique_id=810192530 node_paths=PackedStringArray("vp")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 double_sided = false
-texture = SubResource("ViewportTexture_cn21l")
+texture = SubResource("ViewportTexture_a2avq")
 script = ExtResource("2_8ms8j")
 vp = NodePath("../SubViewport")
 metadata/_custom_type_script = "uid://ba4ca2mlxei2r"
 
-[node name="Glow" type="Sprite3D" parent="Front"]
+[node name="Glow" type="Sprite3D" parent="Front" unique_id=505078344]
 transform = Transform3D(-2.5, 0, -3.77489e-07, 0, 2.5, 0, 3.77489e-07, 0, -2.5, 0, 0, -0.005)
 visible = false
 modulate = Color(0, 1, 0.116667, 1)
 texture = ExtResource("6_cn21l")
 
-[node name="Back" type="Node3D" parent="."]
+[node name="Back" type="Node3D" parent="." unique_id=920716651]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Background" type="Sprite3D" parent="Back"]
+[node name="Background" type="Sprite3D" parent="Back" unique_id=544413161]
 transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0.01)
 double_sided = false
 texture = ExtResource("3_q103a")
 
-[node name="Detail" type="Sprite3D" parent="Back/Background"]
+[node name="Detail" type="Sprite3D" parent="Back/Background" unique_id=624602628]
 transform = Transform3D(0.552955, 0, 3.55271e-15, 0, 0.552955, 0, -3.55271e-15, 0, 0.552955, 2.77556e-17, 0, 0.00368637)
 double_sided = false
 texture = ExtResource("4_g8efq")
