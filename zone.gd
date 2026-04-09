@@ -12,10 +12,9 @@ signal on_shuffled
 @export var organize_after_shuffle: bool = true
 
 @export_tool_button("Organize")
-var organize_button = organize_button_pressed
 ## Button handler for the editor-side "Organize" button.
-func organize_button_pressed ():
-	_organize()
+var organize_button:
+	get: return func(): _organize()
 
 
 ## Adds an item to the zone and notifies listeners.

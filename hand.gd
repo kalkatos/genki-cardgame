@@ -5,6 +5,8 @@ class_name Hand
 ## Supports bending, angled cards, and repositioning during drag.
 extends Zone
 
+@export_enum("Left:0", "Center:1", "Right:2")
+var alignment: int = 1
 @export var bend: Curve
 @export var bend_height: float = 1.0
 @export var distance: float = 3.0
@@ -44,7 +46,7 @@ func _organize_option (snap: bool, sorting_base: int = 0, ignore_card: Card = nu
 	if total_width > max_width:
 		total_width = max_width
 		used_distance = max_width / (count - 1)
-	var start_x = -total_width / 2
+	var start_x = -total_width / 2 if alignment == 1 else (0.0 if alignment == 0 else -total_width)
 	# Update each child's position and rotation
 	for i in range(count):
 		var child = get_child(i)
