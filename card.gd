@@ -48,14 +48,7 @@ func _ready () -> void:
 	# Ensure camera is available for 3D interactions
 	if not _camera and not Engine.is_editor_hint():
 		push_error("No camera 3D found in the current viewport.")
-	_default_highlight_settings = HighlightSettings.new(
-			Vector3(0, 0, HIGHLIGHT_HEIGHT),
-			Vector3(0, 0, -HIGHLIGHT_HEIGHT),
-			Vector3(1.1, 1.1, 1.1),
-			false,
-			0.2,
-			Tween.TRANS_BOUNCE,
-			Tween.EASE_OUT)
+	_default_highlight_settings = HighlightSettings.new()
 	_default_sorting_settings = SortingSettings.new()
 
 
@@ -317,16 +310,23 @@ func _face_camera_quat () -> Quaternion:
 
 ## Data structure for highlight transformation settings.
 class HighlightSettings:
-	var front_offset: Vector3
-	var back_offset: Vector3
-	var scale: Vector3
-	var face_camera: bool
-	var time: float
-	var trans: int
-	var ease: int
+	var front_offset: Vector3 = Vector3(0, 0, HIGHLIGHT_HEIGHT)
+	var back_offset: Vector3 = Vector3(0, 0, -HIGHLIGHT_HEIGHT)
+	var scale: Vector3 = Vector3(1.1, 1.1, 1.1)
+	var face_camera: bool = false
+	var time: float = 0.2
+	var trans: int = Tween.TRANS_BOUNCE
+	var ease: int = Tween.EASE_OUT
 
 	## Initializes highlight settings with the given parameters.
-	func _init (front_offset: Vector3, back_offset: Vector3, scale: Vector3, face_camera: bool, time: float, trans: int, ease: int):
+	func _init (
+			front_offset: Vector3 = Vector3(0, 0, HIGHLIGHT_HEIGHT),
+			back_offset: Vector3 = Vector3(0, 0, -HIGHLIGHT_HEIGHT), 
+			scale: Vector3 = Vector3(1.1, 1.1, 1.1), 
+			face_camera: bool = false, 
+			time: float = 0.2, 
+			trans: int = Tween.TRANS_BOUNCE, 
+			ease: int = Tween.EASE_OUT):
 		self.front_offset = front_offset
 		self.back_offset = back_offset
 		self.scale = scale
@@ -336,8 +336,8 @@ class HighlightSettings:
 		self.ease = ease
 
 class SortingSettings:
-	var drag_card_sorting: int
-	var highlighted_card_sorting: int
+	var drag_card_sorting: int = 30
+	var highlighted_card_sorting: int = 20
 
 	func _init (drag_card_sorting: int = 30, highlighted_card_sorting: int = 20):
 		self.drag_card_sorting = drag_card_sorting
